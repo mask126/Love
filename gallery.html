@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="gallery.css">
+    <title>Я тебя люблю</title>
+</head>
+<body>
+    <header>
+        <nav class="navig">
+            <div class="logo">
+                <a href="index.html">
+                    <h2>ВместеНавсегда</h2>
+                </a>
+            </div>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="gallery.html">Галерея</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="gallery-section" id="gallery">
+        <h1>Немножко самой красивой вредины</h1>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="image/1.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/2.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/3.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/4.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/5.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/6.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/7.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/8.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/9.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/10.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/11.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/12.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/13.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/14.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/15.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/16.jpg" alt="Love">
+            </div>
+            <div class="gallery-item">
+                <img src="image/17.jpg" alt="Love">
+            </div>
+        </div>
+        <div class="hearts" id="hearts-container"></div>
+    </section>
+    <div class="modal" id="modal">
+        <span class="close" id="close">x</span>
+        <span class="prev" id="prev">❮</span>
+        <span class="next" id="next">❯</span>
+        <img class="modal-content" id="modal-img">
+    </div>
+    <script>
+       let intervalId = null;
+
+function startHearts() {
+    if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+    }
+
+    intervalId = setInterval(() => {
+        const heartsContainer = document.getElementById('hearts-container');
+        
+        for (let i = 0; i < 5; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = `${-10 + Math.random() * 120}%`; 
+            heart.style.animationDuration = `${4 + Math.random() * 2}s`; 
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }
+    }, 300);
+}
+startHearts();
+
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        const close = document.getElementById('close');
+        const prev = document.getElementById('prev');
+        const next = document.getElementById('next');
+        const images = document.querySelectorAll('.gallery-item img');
+        let currentIndex = 0;
+
+        images.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+                currentIndex = index;
+            });
+        });
+
+        close.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        prev.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            modalImg.src = images[currentIndex].src;
+            modalImg.alt = images[currentIndex].alt;
+        });
+
+        next.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            modalImg.src = images[currentIndex].src;
+            modalImg.alt = images[currentIndex].alt;
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
